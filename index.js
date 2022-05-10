@@ -24,7 +24,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use("/uploads", express.static("uploads"));
-app.use(cors())
+app.use(cors({ origin: '*',}));
 
 //routes
 app.use("/api/auth", authRouter);
