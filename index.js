@@ -24,6 +24,11 @@ app.use(
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use("/uploads", express.static("uploads"));
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next()
+  });
 app.use(cors({ origin: '*',}));
 
 //routes
@@ -32,8 +37,8 @@ app.use("/api/customer", customerRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/bill", billsRouter);
 
-
-http.listen(1201, () => console.log(`App listening at http://localhost:1201`));
+const port = process.env.PORT || 3000;
+http.listen(port, () => console.log(`App listening at http://localhost:${port}`));
 
 mongoose.connect(process.env.DB_CONNECTION, {
         useNewUrlParser: true,

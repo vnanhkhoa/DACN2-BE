@@ -13,7 +13,6 @@ const Bill = require("../models/Bill");
 router.get("/all", verifyToken, async (req, res) => {
     try {
         let Bills = await Bill.find()
-            .populate("customer", ["username"])
             .populate({
                 path: "products.product",
                 match: {
